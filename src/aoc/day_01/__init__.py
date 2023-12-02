@@ -3,22 +3,22 @@ from aoc.base import BaseChallenge
 
 class Challenge(BaseChallenge):
     def part_1(self):
-        calibration_values = []
+        measurements = []
         lines = self.input_lines()
 
         for line in lines:
-            first_digit = next(char for char in line if char.isdigit())
-            last_digit = next(char for char in reversed(line) if char.isdigit())
+            first_value = next(char for char in line if char.isdigit())
+            last_value = next(char for char in reversed(line) if char.isdigit())
 
-            calibration_values.append(int(first_digit + last_digit))
+            measurements.append(int(first_value + last_value))
 
-        total_calibration = sum(calibration_values)
+        total_calibration = sum(measurements)
         return total_calibration
 
     def part_2(self):
-        calibration_values = []
+        measurements = []
         lines = self.input_lines()
-        spelled_digits = {
+        spelled_values = {
             "one": "one1one",
             "two": "two2two",
             "three": "three3three",
@@ -31,14 +31,14 @@ class Challenge(BaseChallenge):
         }
 
         for line in lines:
-            for spelled_digit, numeric_digit in spelled_digits.items():
-                line = line.replace(spelled_digit, numeric_digit)
-            first_digit = next(char for char in line if char.isdigit())
-            last_digit = next(char for char in reversed(line) if char.isdigit())
+            for spelled_value, numeric_value in spelled_values.items():
+                line = line.replace(spelled_value, numeric_value)
+            first_value = next(char for char in line if char.isdigit())
+            last_value = next(char for char in reversed(line) if char.isdigit())
 
-            calibration_values.append(int(first_digit + last_digit))
+            measurements.append(int(first_value + last_value))
 
-        total_calibration = sum(calibration_values)
+        total_calibration = sum(measurements)
         return total_calibration
 
 
