@@ -29,7 +29,23 @@ class Challenge(BaseChallenge):
         return result
 
     def part_2(self):
-        return
+        lines = self.input_lines()
+        times = list(map(str, lines[0].split(':')[1].split()))
+        times = int("".join(times))
+        distances = list(map(str, lines[1].split(':')[1].split()))
+        distances = int("".join(distances))
+
+        races = []
+
+        ways = 0
+        for hold_time in range(times):
+            speed = hold_time
+            remaining_time = times - hold_time
+            total_distance = speed * remaining_time
+            if total_distance > distances:
+                ways += 1
+
+        return ways
 
 
 if __name__ == "__main__":
