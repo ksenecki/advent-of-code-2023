@@ -35,8 +35,6 @@ class Challenge(BaseChallenge):
         distances = list(map(str, lines[1].split(':')[1].split()))
         distances = int("".join(distances))
 
-        races = []
-
         ways = 0
         for hold_time in range(times):
             speed = hold_time
