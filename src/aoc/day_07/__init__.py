@@ -15,8 +15,6 @@ class Challenge(BaseChallenge):
 
         all_hands = list(zip(hands, bids))
 
-        card_order = "AKQJT98765432"
-
         for hand in all_hands:
             cards_set = set(hand[0])
             card_counts = dict()
@@ -48,20 +46,19 @@ class Challenge(BaseChallenge):
             powers.append(hand_power)
 
         hands_with_powers = list(zip(hands, bids, powers))
-        hands_with_powers.sort(key=lambda a: a[2], reverse=True)
 
-        # i = 0
-        # j = 0
-        # for hand in hands_with_powers:
-        #     if 0 < i < len(hands_with_powers):
-        #         if hand[2] == hands_with_powers[i-1][2]:
-        #             for card in hand[0]:
-        #                 if card > hands_with_powers[i-1][0][j]:
+        key_order = "AKQJT98765432"
+
+        def cards_sort_key(s):
+            return [key_order.index(char) for char in s[0]]
+        hands_with_powers.sort(key=cards_sort_key)
+        hands_with_powers.sort(key=lambda a: a[2], reverse=True)
 
         i = 1
         total_value = 0
         for hand in hands_with_powers:
             total_value = int(total_value) + i * int(hand[1])
+            i += 1
 
         return total_value
 
