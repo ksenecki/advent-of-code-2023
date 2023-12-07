@@ -25,9 +25,6 @@ class Challenge(BaseChallenge):
                         count_char += 1
                 card_counts[cards] = count_char
 
-                # sorted_cards = sorted(hand[0], key=lambda x: card_order.index(x), reverse=True)
-                # print(sorted_cards)
-
             if len(set(card_counts.values())) == 1 and 5 in card_counts.values():
                 hand_power = 8
             elif 4 in card_counts.values():
@@ -51,8 +48,8 @@ class Challenge(BaseChallenge):
 
         def cards_sort_key(s):
             return [key_order.index(char) for char in s[0]]
-        hands_with_powers.sort(key=cards_sort_key)
-        hands_with_powers.sort(key=lambda a: a[2], reverse=True)
+        hands_with_powers.sort(key=cards_sort_key, reverse=True)
+        hands_with_powers.sort(key=lambda a: a[2])
 
         i = 1
         total_value = 0
