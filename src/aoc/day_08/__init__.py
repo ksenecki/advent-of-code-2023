@@ -5,38 +5,31 @@ import re
 class Challenge(BaseChallenge):
     def part_1(self):
         lines = self.input_lines()
-        instructions = [tuple(line.strip()) for line in lines[0].split()]
+        my_map = {}
+        for i, line in enumerate(lines):
+            stripped_line = line.strip()
+            if i == 0:
+                directions = stripped_line
+            elif i != 1:
+                place, left, right = re.findall(r"\w+", stripped_line)
+                my_map[place] = (left, right)
 
-        nodes = {}
-        for line in lines[2:]:
-            parts = line.strip().split('=')
-            node_name = parts[0].strip()
-            neighbors = tuple(part.strip() for part in parts[-1].lstrip(' (').rstrip(')\n').split(','))
-            nodes[node_name] = neighbors
+        steps = 0
+        starting_node = 'AAA'
+        i = -1
+        while starting_node != 'ZZZ':
+            steps += 1
+            i += 1
+            if i == len(directions):
+                i = 0
+            direction = directions[i]
+            if direction == 'L':
+                starting_node = my_map[starting_node][0]
+            else:
+                starting_node = my_map[starting_node][1]
 
-        start_node = nodes['AAA']
-        current_node = start_node
-        visited_nodes = set()
-        max_steps = 100
+        return steps
 
-        for step in range(max_steps):
-            for instruction in instructions:
-                for direction in instruction:
-                    if direction == 'L':
-                        current_node = current_node[0]
-                    elif direction == 'R':
-                        current_node = current_node[1]
-                    else:
-                        raise ValueError("Invalid instruction: {}".format(direction))
-
-                    if current_node in visited_nodes:
-                        break
-                    visited_nodes.add(current_node)
-
-                    if current_node == 'ZZZ':
-                        return step + 1
-
-        return current_node
 
     def part_2(self):
         return
